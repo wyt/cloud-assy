@@ -32,4 +32,8 @@ SKYWALKING_AGENT_SERVICE_NAME=${VAR_MIDDLE:1}
 
 echo "skywalking.agent.service_name: ${SKYWALKING_AGENT_SERVICE_NAME}"
 
-java -javaagent:/opt/skywalking-agent/skywalking-agent.jar -Dskywalking.agent.service_name=${SKYWALKING_AGENT_SERVICE_NAME} -Dskywalking.collector.backend_service=${SKYWALKING_COLLECTOR_BACKEND_SERVICE} -Djava.security.egd=file:/dev/./urandom -jar $1 $2
+java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap \
+ -javaagent:/opt/skywalking-agent/skywalking-agent.jar \
+ -Dskywalking.agent.service_name=${SKYWALKING_AGENT_SERVICE_NAME} \
+ -Dskywalking.collector.backend_service=${SKYWALKING_COLLECTOR_BACKEND_SERVICE} \
+ -Djava.security.egd=file:/dev/./urandom -jar $1 $2
