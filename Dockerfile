@@ -4,10 +4,10 @@ MAINTAINER wangyongtao
 
 ENV APP_LOG_PATH="/applog" \
     FILE_BEAT_CRT_PATH="/etc/pki/tls/certs" \
-    FILE_BEAT_PACKAGE_NAME="filebeat-6.2.2-linux-x86_64" \
+    FILE_BEAT_PACKAGE_NAME="filebeat" \
     SKYWALKING_AGENT_PACKAGE_NAME="skywalking-agent" \
     FILE_BEAT_CRT_NAME="logstash-beats.crt" \
-    ENTRYPOINT_FILE_NAME="filebeat-springboot-entrypoint.sh" \
+    ENTRYPOINT_FILE_NAME="cloud-assy-entrypoint.sh" \
     WAIT_FOR_IT="wait-for-it.sh" \
     TZ="Asia/Shanghai"
 

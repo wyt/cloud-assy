@@ -1,6 +1,6 @@
 #! /bin/bash
-# cat -A filebeat-springboot-entrypoint.sh
-# dos2unix filebeat-springboot-entrypoint.sh
+# cat -A cloud-assy-entrypoint.sh
+# dos2unix cloud-assy-entrypoint.sh
 echo "executing bash."
 
 echo "$1"
@@ -20,7 +20,7 @@ env
 if [[ $2 == *"uat"* ]] || [[ $2 == *"prod"* ]]
 then
   echo "start filebeat now ..."
-  nohup /opt/filebeat-6.2.2-linux-x86_64/filebeat -E "output.logstash.hosts=['$FILEBEAT_OP_LS_HOSTS']" -e -c /opt/filebeat-6.2.2-linux-x86_64/filebeat.yml >/dev/null 2>&1 &
+  nohup /opt/filebeat/filebeat -E "output.logstash.hosts=['$FILEBEAT_OP_LS_HOSTS']" -e -c /opt/filebeat/filebeat.yml >/dev/null 2>&1 &
 fi
 
 echo "start springboot jar now ..."
