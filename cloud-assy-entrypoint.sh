@@ -27,13 +27,19 @@ echo "start springboot jar now ..."
 
 #java -Djava.security.egd=file:/dev/./urandom -jar $1 $2
 
-VAR_MIDDLE=${1%%.*}
-SKYWALKING_AGENT_SERVICE_NAME=${VAR_MIDDLE:1}
-
-echo "skywalking.agent.service_name: ${SKYWALKING_AGENT_SERVICE_NAME}"
-
-java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap \
- -javaagent:/opt/skywalking-agent/skywalking-agent.jar \
- -Dskywalking.agent.service_name=${SKYWALKING_AGENT_SERVICE_NAME} \
- -Dskywalking.collector.backend_service=${SKYWALKING_COLLECTOR_BACKEND_SERVICE} \
- -Djava.security.egd=file:/dev/./urandom -jar $1 $2
+case ${SKYWALKING_ANGENT_ENABLE} in
+"true")
+  VAR_MIDDLE=${1%%.*}
+  SKYWALKING_AGENT_SERVICE_NAME=${VAR_MIDDLE:1}
+  echo "skywalking.agent.service_name: ${SKYWALKING_AGENT_SERVICE_NAME}"
+  java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap \
+   -javaagent:/opt/skywalking-agent/skywalking-agent.jar \
+   -Dskywalking.agent.service_name=${SKYWALKING_AGENT_SERVICE_NAME} \
+   -Dskywalking.collector.backend_service=${SKYWALKING_COLLECTOR_BACKEND_SERVICE} \
+   -Djava.security.egd=file:/dev/./urandom -jar $1 $2
+  ;;
+*)
+  java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap \
+   -Djava.security.egd=file:/dev/./urandom -jar $1 $2
+  ;;
+esac
