@@ -7,13 +7,18 @@ echo "$1"
 echo "$2"
 echo "$FILEBEAT_OP_LS_HOSTS"
 
-# 打印.host_env文件内容
-echo ".host_env file content:"
-cat .host_env
+if [ -e .host_env ]; then
+  # 打印.host_env文件内容
+  echo ".host_env file content:"
+  cat .host_env
 
-# 将.host_env文件内容设置为环境变量
-for line in `cat .host_env`; do echo "export $line" >> /etc/profile ;done
-source /etc/profile
+  # 将.host_env文件内容设置为环境变量
+  for line in `cat .host_env`; do echo "export $line" >> /etc/profile ;done
+  source /etc/profile
+else
+  echo ".host_env does not exist."
+fi
+
 echo "env info:"
 env
 
@@ -24,8 +29,6 @@ then
 fi
 
 echo "start springboot jar now ..."
-
-#java -Djava.security.egd=file:/dev/./urandom -jar $1 $2
 
 case ${SKYWALKING_ANGENT_ENABLE} in
 "true")
